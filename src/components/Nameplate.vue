@@ -14,9 +14,9 @@
       @click="setFaves" 
       :yellow="player.name === 'エリオ'" 
       :primary="player.name === 'ジョシュ'" 
-      :positive="player.name === 'P3'"
+      :positive="player.name === 'ロブ'"
       small />
-      <v-toggle v-model="player.preventRerolls">Prevent re-rolls</v-toggle>
+      <v-button class="clear-all-btn" icon="close" @click="clearMains()" negative xsmall />
     </div>
   </div>
 </template>
@@ -32,6 +32,9 @@ export default {
     },
     setFaves() {
       this.$emit("set-faves")
+    },
+    clearMains() {
+      this.$emit("clear-mains")
     }
   }
 }
@@ -102,5 +105,25 @@ export default {
       transform: scale(0.6);
     }
   }
+}
+
+
+@keyframes colour-cycle {
+  0% { color: #FBAF00; }
+  20% { color: #FFD639; }
+  40% { color: #FFA3AF; }
+  60% { color: #007CBE; }
+  80% { color: #00AF54; }
+  100% { color: #FBAF00; }
+}
+
+* {
+  animation: colour-cycle 30s infinite ease-in;
+  font-weight: bold;
+}
+
+.fast-colour-cycle {
+  animation: colour-cycle 30s infinite ease-in;
+  font-weight: bold;
 }
 </style>

@@ -2,7 +2,7 @@ import VueRouter from "vue-router";
 import Mixin from './mixin'
 import Index from './components/Index.vue';
 import Menu from './components/Menu.vue';
-import SmashBoard from './components/SmashBoard.vue';
+import FNMBoard from './components/FNMBoard.vue';
 import Sming from './components/Sming.vue';
 import FlexPlayground from './components/FlexPlayground.vue';
 import Button from './components/Button.vue';
@@ -30,7 +30,7 @@ if (typeof Vue !== 'undefined') {
   Vue.mixin(Mixin);
   Vue.component('v-index', Index);
   Vue.component('v-menu', Menu);
-  Vue.component('v-smashboard', SmashBoard);
+  Vue.component('v-FNMBoard', FNMBoard);
   Vue.component('v-sming', Sming);
   Vue.component('v-flex-playground', FlexPlayground);
   Vue.component('v-button', Button);
@@ -59,7 +59,7 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes: [
     { path: '/', component: DiceBoard },
-    { path: '/smashboard', component: SmashBoard },
+    { path: '/FNMBoard', component: FNMBoard },
     { path: '/flex', component: FlexPlayground },
     { path: '/bossboard', component: BossBoard },
     { path: '/mineboard', component: MineBoard },

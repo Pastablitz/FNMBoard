@@ -198,7 +198,6 @@ const ALL_DECKS = [
 { name: 'Cloud'  },
 { name: 'Double Ds'  },
 { name: 'Dragonlord Ojutai'  },
-{ name: 'Gix'  },
 { name: 'God-Eternal Oketra'  },
 { name: 'Hazoret'  },
 { name: 'Inspirit'  },
@@ -218,10 +217,10 @@ const ALL_DECKS = [
 { name: 'Terra'  },
 { name: 'Teysa'  },
 { name: 'Vanille'  },
-{ name: 'Velomachus'  },
 { name: 'Vorinclex'  },
 { name: 'Zareth San'  },
 { name: 'Speed Demon'  },
+{ name: 'Kutzil'  },
 
 { name: 'Giada'  },
 { name: 'Fynn'  },
@@ -245,5 +244,10 @@ const ALL_DECKS = [
 { name: 'Ulalek'  },
 { name: 'Anafenza'  },
 { name: 'Jund'  },
+
+{ name: 'New Deck'  },
+{ name: 'Mystery'  },
+
+
 
 ]

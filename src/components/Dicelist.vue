@@ -1,10 +1,10 @@
 <template>
   <div class="v-dicelist">
-    <div class="title">Dicelist</div>
+    <!-- <div class="title"></div> -->
     <div class="active-item ">
-      <!-- <div class="slide-marquee"> {{ activeItem ? activeItem : '何しようかsmashboard v3 ダイスリスト' }} </div> -->
+      <!-- <div class="slide-marquee"> {{ activeItem ? activeItem : '何しようかFNMBoard v3 ダイスリスト' }} </div> -->
       <div ref="activeItem" :class="[{ 'slide-marquee': isOverflowing }]">
-        {{ activeItem ? activeItem : '何しようか' }}
+        {{ activeItem ? activeItem : 'Who first?' }}
       </div>
     </div>
     <v-button v-if="!isRolling && containsWord('smash')" dark @click="goToPage('smashboard')">Take me to
@@ -147,7 +147,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  //padding-top: 3%;
+  padding-top: 3%;
   gap: 16px;
 
   >div {
@@ -164,18 +164,19 @@ export default {
   // todo: do we want this width on or not? 
   width: 500px; 
   max-width: 500px;
-
+  justify-content: center;
+  
   >div {
-    font-size: 40px;
+    font-size: 30px;
     flex-shrink: 1;
     border: 1px solid var(--greyscale-20);
     border-radius: 8px;
     background-color: var(--greyscale-10);
     text-align: center;
     position: relative;
-    padding: 16px 24px;
-    flex-grow: 1;
-    flex-basis: 100%;
+    padding: 8px 16px;
+    //flex-grow: 1;
+    flex-basis: 80%;
 
   }
 
@@ -190,7 +191,7 @@ export default {
 .input-zone {
   display: flex;
   flex-basis: 50%;
-  min-height: 50px;
+  min-height: 30px;
   flex-direction: row;
   align-items: center;
 }
@@ -201,7 +202,7 @@ export default {
   min-height: 30px;
   flex-direction: row;
   align-items: center;
-  font-size: 40px;
+  font-size: 30px;
   background-color: #16161f;
   padding: 8px;
   text-align: center;
@@ -210,14 +211,14 @@ export default {
 .active-item {
   display: flex;
   flex-basis: 50%;
-  min-height: 50px;
-  max-height: 50px;
+  min-height: 40px;
+  max-height: 40px;
   width: 500px;
   max-width: 500px;
   flex-direction: row;
   align-items: center;
   //justify-content: center; //removed for marquee
-  font-size: 50px;
+  font-size: 40px;
   padding-top: 2%;
   padding-bottom: 2%;
   margin-bottom: 20px;
@@ -226,7 +227,7 @@ export default {
   text-overflow: clip; 
 
   div {
-      font-size: 50px;
+      font-size: 40px;
      width: 100%;
       white-space: nowrap;
       overflow: visible;
@@ -238,43 +239,26 @@ export default {
 .title {
   display: flex;
   flex-basis: 50%;
-  min-height: 50px;
+  min-height: 30px;
   align-items: center;
-  font-size: 50px;
-  //padding-top: 2%;
+  font-size: 30px;
+  padding-top: 2%;
   // padding-bottom: 2%;
   //margin-bottom: 20px;
   // text-align: center;
 }
 
-@keyframes color-cycle {
-  0% {
-    color: #FBAF00;
-  }
-
-  20% {
-    color: #FFD639;
-  }
-
-  40% {
-    color: #FFA3AF;
-  }
-
-  60% {
-    color: #007CBE;
-  }
-
-  80% {
-    color: #00AF54;
-  }
-
-  100% {
-    color: #FBAF00;
-  }
+@keyframes colour-cycle {
+  0% { color: #FBAF00; }
+  20% { color: #FFD639; }
+  40% { color: #FFA3AF; }
+  60% { color: #007CBE; }
+  80% { color: #00AF54; }
+  100% { color: #FBAF00; }
 }
 
 * {
-  animation: color-cycle 30s infinite ease-in;
+  animation: colour-cycle 30s infinite ease-in;
   font-weight: bold;
 }
 

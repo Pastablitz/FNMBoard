@@ -2,7 +2,7 @@
   <div class="v-roster-modal">
     <v-button @click="showSelectionModal" 
       icon="plus" 
-      :negative="player.name === 'エリオ'"
+      :yellow="player.name === 'エリオ'"
       :primary="player.name === 'ジョシュ'" 
       :positive="player.name === 'ロブ'" 
       xsmall />
@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      sortBy: 0,
+      sortBy: 1,
       searchTerm: ''
     }
   },
@@ -82,7 +82,7 @@ export default {
 }
 
 .selection-modal {
-  top: 80px;
+  top: 50px;
   margin-inline: auto; 
   border: 1px solid black;
   border-radius: 8px;
@@ -105,7 +105,7 @@ export default {
   .modal-body {
     overflow-y: auto;
     padding: 4px;
-    max-height: 400px;
+    max-height: 800px;
     display: flex;
     flex-direction: column;
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="v-fighter" :style="activeFighterStyles" @click="toggleMain(fighter)">
-    <img :src="fighter.iconPath" />
+    <img :src="fighter.deckImagePath" class="fighter-icon" />
     <span class="name">{{ fighter.name }}</span>
     <button type="button" 
       :class="['favourite', { 'active': player.hasFave(fighter) }]" 
@@ -37,7 +37,10 @@ export default {
       return {
         'background-color': `var(--${this.player.colour}-light)`,
         'color': `var(--${this.player.colour}-dark)`,
-        'box-shadow': `0px 0px 8px 3px var(--${this.player.colour}-primary)`
+        'box-shadow': `0px 0px 8px 3px var(--${this.player.colour}-primary)`,
+        'animation': 'blink 2s',
+            'animation-fill-mode': 'forwards',
+    'animation-direction': 'alternate'
       };
     },
     favouriteFighterStyles() {
@@ -57,7 +60,6 @@ export default {
   align-items: center;
   gap: 8px;
   border-radius: 8px;
-  padding: 8px;
   padding-right: 12px;
   background-color: white;
   cursor: pointer;
@@ -68,6 +70,17 @@ export default {
     .favourite {
       opacity: 1;
     }
+  }
+}
+
+.fighter-icon {
+  width: 90px;
+  align-items: center;
+  object-fit: contain;
+  border-radius: 8px;
+
+  &.ジョシュ-no-active-fighter {
+    filter: hue-rotate(210deg);
   }
 }
 
@@ -112,5 +125,10 @@ export default {
   50% {
     transform: scale(0.9); //rotate(8deg);
   }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1 !important; }
+  50% { opacity: 0.3 !important; }
 }
 </style>

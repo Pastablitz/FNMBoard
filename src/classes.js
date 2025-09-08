@@ -10,6 +10,10 @@ class Fighter {
   get imagePath() {
     return `src/assets/fighter-imgs/${this.name}.png`;
   }
+
+  get deckImagePath() {
+    return `src/assets/deck-imgs/${this.name}.jpg`;
+  }
 }
 
 class Boss {
@@ -130,7 +134,13 @@ class Player {
   resetMains() {
     this.mains = [...this.faves];
   }
+
+    clearMains() {
+    this.mains = [];
+  }
 }
+
+
 
 class SortBy {
   static get default() {
