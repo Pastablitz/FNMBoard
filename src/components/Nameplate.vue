@@ -1,30 +1,35 @@
 <template>
   <div class="v-nameplate">
-    <span @click="nameClick">{{ player.name }}</span>
-    <div class="mains">
-      <div v-for="fighter in player.mains">
-        <v-fighter v-bind:fighter="fighter" :fighter="fighter" :player="player" />
+    <span :class="[player.goingFirst ? 'fast-colour-cycle' : 'colour-cycle', 'player-name']" @click="nameClick">
+      {{ player.name }}
+    </span>
+    <div class="mains" >
+      <div v-for="fighter in player.mains" @dblclick="player.activeFighter = fighter" >
+        <v-fighter v-bind:fighter="fighter" :fighter="fighter"  :player="player" ref="fighter" :wins-data="winsData" :show-data="showData"  />
         <v-button @click="player.toggleMain(fighter)" icon="close" negative xsmall />
       </div>
-      <v-roster-modal :player="player" />
     </div>
-    <div class="set-faves-container">
-      <v-button class="set-faves-btn" 
-      icon="heart" 
-      @click="setFaves" 
-      :yellow="player.name === 'エリオ'" 
-      :primary="player.name === 'ジョシュ'" 
-      :positive="player.name === 'ロブ'"
-      small />
-      <v-button class="clear-all-btn" icon="close" @click="clearMains()" negative xsmall />
+    <div class="buttons-container">
+      <v-button class="set-faves-btn" icon="heart" @click="setFaves" :yellow="player.name === 'エリオ'"
+        :primary="player.name === 'ジョシュ'" :positive="player.name === 'ロブ'" small />
+      <v-roster-modal class="roster-button" :player="player" />
+      <v-button class="clear-all-btn" icon="close" @click="clearMains()" negative small />
     </div>
   </div>
 </template>
 
 <script>
+import { GoogleSheetsService, GameDataService } from '@/googleSheetsService.js'
+
 export default {
   props: {
-    player: { type: Player }
+    player: { type: Player },
+    wins: 0,
+    winsData: {
+      type: Array,
+      default: () => []
+    },
+    showData: false
   },
   methods: {
     nameClick() {
@@ -35,8 +40,24 @@ export default {
     },
     clearMains() {
       this.$emit("clear-mains")
+    },
+    updateAllFighterWins() {
+      (this.$refs.fighter || []).forEach(d => d.countFighterWins());
     }
-  }
+  },
+  computed: {
+  secondWinCheck() {
+    return (this.winsData && this.winsData.length > 1)
+      ? this.winsData[1]
+      : null
+  },
+  mainStyles() {    
+      return {
+        color: `var(--${this.player.colour}-primary)`,
+        boxShadow: `0px 0px 8px 3px var(--${this.player.colour}-primary)`
+      };
+    }
+}
 }
 </script>
 
@@ -45,11 +66,11 @@ export default {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  flex-shrink: 0;
   gap: 20px;
-  position: relative;
+  justify-content: start;
+  //position: relative;
 
-  >span {
+  span {
     display: flex;
     gap: 8px;
     justify-content: center;
@@ -70,16 +91,18 @@ export default {
 
 .set-faves-btn {
   align-self: center;
-  margin-top: auto;
+  //margin-top: auto;
+  //position: absolute;
+  //bottom: 10px;
 }
 
-.set-faves-container {
+.buttons-container {
   display: flex;
   gap: 12px;
   align-self: center;
   align-items: center;
-  margin-top: auto;
-
+  position: absolute;
+  bottom: 20px;
 }
 
 .mains {
@@ -87,7 +110,10 @@ export default {
   flex-direction: column;
   gap: 8px;
   align-items: center;
-
+  //height: 50%; //no longer in effect
+  scrollbar-width: thin;
+  scrollbar-gutter: stable both-edges;
+  
   >div {
     display: flex;
     align-items: center;
@@ -117,13 +143,27 @@ export default {
   100% { color: #FBAF00; }
 }
 
-* {
+.colour-cycle {
   animation: colour-cycle 30s infinite ease-in;
   font-weight: bold;
 }
 
 .fast-colour-cycle {
-  animation: colour-cycle 30s infinite ease-in;
+  animation: colour-cycle 0.5s infinite ease-in;
   font-weight: bold;
 }
+
+.roster-button {
+ // position: absolute;
+}
+
+.player-name {
+  background-color: rgba(0, 0, 0, 0.7); 
+  padding: 4px 12px;
+  border-radius: 4px;
+  //display: inline-block; // Makes it only as wide as the text
+  width: fit-content;
+  align-self: center; 
+}
+
 </style>

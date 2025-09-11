@@ -1,5 +1,5 @@
 const Roster = ALL_DECKS.map((fighter) => {
-  return new Fighter(fighter.name);
+  return new Fighter(fighter.name, fighter.position);
 });
 
 const エリオ = new Player("エリオ", "yellow");

@@ -58,8 +58,8 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes: [
-    { path: '/', component: DiceBoard },
-    { path: '/FNMBoard', component: FNMBoard },
+    { path: '/', component: FNMBoard },
+    { path: '/diceboard', component: DiceBoard },
     { path: '/flex', component: FlexPlayground },
     { path: '/bossboard', component: BossBoard },
     { path: '/mineboard', component: MineBoard },

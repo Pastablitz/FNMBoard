@@ -5,7 +5,7 @@
       :yellow="player.name === 'エリオ'"
       :primary="player.name === 'ジョシュ'" 
       :positive="player.name === 'ロブ'" 
-      xsmall />
+       />
     <dialog ref="selectionModal" class="selection-modal" v-click-outside="closeSelectionModal">
       <div class="modal-top">
         <span class="player-name">{{ player.name }}</span>

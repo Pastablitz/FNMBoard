@@ -1,6 +1,7 @@
 class Fighter {
-  constructor(name) {
+  constructor(name,position) {
     this.name = name;
+    this.position = position;
   }
 
   get iconPath() {
@@ -30,6 +31,39 @@ class Boss {
   }
 }
 
+class GameLog {
+  constructor(playerName) {
+    this.winners = [];
+    
+  }
+
+ async loadWinners(range, searchString) {
+    const result = await this.readRange(range);
+    console.log(result)
+    if (result.success) {
+
+      const winnersData = this.winners;
+      localStorage.setItem(`winnersData`, JSON.stringify(winnersData));
+
+      const count = result.data.filter(item => 
+        String(item).toLowerCase() === searchString.toLowerCase()
+      ).length;
+      
+      console.log(`"${searchString}" appears ${count} times in range ${range}`);
+      return {
+        success: true,
+        searchString: searchString,
+        count: count,
+        totalCells: result.data.length,
+        data: result.data
+      };
+    }
+    
+    return { success: false };
+  }
+
+}
+
 class Player {
   constructor(name, colour) {
     this.name = name;
@@ -40,6 +74,7 @@ class Player {
     this.loadData();
     this.lastRoll = null;
     this.preventRerolls = false;
+    this.goingFirst = false;
   }
 
   activeFighter = null;
@@ -70,20 +105,26 @@ class Player {
     localStorage.setItem(`${this.name}-mains`, JSON.stringify(mainsData));
   }
 
-  roster(sorting = SortBy.default, searchTerm = '') {
-    const filteredRoster = Roster.filter((fighter) => {
-      const cleanSearchTerm = searchTerm.toLowerCase().trim();
-      return !this.hasMain(fighter) && fighter.name.toLowerCase().includes(cleanSearchTerm)
-    });
-
-    switch (sorting) {
-      case SortBy.favouritesFirst:
-        return filteredRoster.sort((a, b) => this.hasFave(b) - this.hasFave(a));
-      case SortBy.default:
-      default:
-        return filteredRoster;
-    }
+ roster(sorting = SortBy.default, searchTerm = '') {
+  const filteredRoster = Roster.filter((fighter) => {
+    const cleanSearchTerm = searchTerm.toLowerCase().trim();
+    return !this.hasMain(fighter) && fighter.name.toLowerCase().includes(cleanSearchTerm)
+  });
+  
+  switch (sorting) {
+    case SortBy.favouritesFirst:
+      return filteredRoster.sort((a, b) => {
+        const faveSort = this.hasFave(b) - this.hasFave(a);
+        if (faveSort === 0) {
+          return a.name.localeCompare(b.name);
+        }
+        return faveSort;
+      });
+    case SortBy.default:
+    default:
+      return filteredRoster.sort((a, b) => a.name.localeCompare(b.name));
   }
+}
 
   hasFave(fighter) {
     return this.faves.some(f => f.name === fighter.name);
@@ -132,11 +173,15 @@ class Player {
   }
 
   resetMains() {
-    this.mains = [...this.faves];
+    if (confirm("Add all decks?")) {
+      this.mains = [...this.faves];
+    }
   }
 
-    clearMains() {
-    this.mains = [];
+  clearMains() {
+    if (confirm("Bin the whole bastard list?")) {
+      this.mains = [];
+    }
   }
 }
 

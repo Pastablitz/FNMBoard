@@ -4,7 +4,7 @@
     <div class="active-item ">
       <!-- <div class="slide-marquee"> {{ activeItem ? activeItem : '何しようかFNMBoard v3 ダイスリスト' }} </div> -->
       <div ref="activeItem" :class="[{ 'slide-marquee': isOverflowing }]">
-        {{ activeItem ? activeItem : 'Who first?' }}
+        {{ activeItem ? activeItem : 'What shall we do today?' }}
       </div>
     </div>
     <v-button v-if="!isRolling && containsWord('smash')" dark @click="goToPage('smashboard')">Take me to
@@ -40,6 +40,7 @@ export default {
   
   data() {
     return {
+      title: '',
       diceList: [],
       isRolling: false,
       itemToAdd: "",

@@ -38,7 +38,6 @@ export default {
       }
     },
     rollAllDice() {
-      //const rollEffectPicker = Math.floor(Math.random() * 3);
       (this.$refs.dicelist || []).forEach(d => d.rollTheDie && d.rollTheDie());
     },
     playRollSound() {

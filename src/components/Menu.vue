@@ -1,9 +1,9 @@
 <template>
   <div class="v-menu">
     <dialog ref="menuModal" class="menu-modal" v-click-outside="closeMenu">
-      <div>
-        <v-button dark @click="goToPage('/')">DICELIST</v-button>
-        <v-button dark @click="goToPage('FNMBoard')">FNM</v-button>
+      <div >
+        <v-button dark @click="goToPage('/')">FNM</v-button>
+        <v-button dark @click="goToPage('diceboard')">DICELIST</v-button>
         <v-button dark @click="goToPage('bossboard')">BOSS</v-button>
         <v-button dark @click="goToPage('flex')">FLEX</v-button>
         <v-button dark @click="goToPage('mineboard')">MINEBOARD</v-button>
@@ -179,6 +179,11 @@ export default {
   }
 }
 
+.menu-item {
+  font-size: 22px;
+  background-color: black;
+
+}
 .boss-button-div {
   display: flex;
   flex-direction: row;
