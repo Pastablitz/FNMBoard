@@ -1,19 +1,34 @@
 <template>
-  <div :class="['v-fighter', this.player.activeFighter?.name === this.fighter.name ? 'fast-colour-cycle' : 'colour-cycle']" 
-  :style="fighterStyles" @click="toggleMain(fighter)">
+  <div
+    :class="['v-fighter', this.player.activeFighter?.name === this.fighter.name ? 'fast-colour-cycle' : 'colour-cycle']"
+    :style="fighterStyles" @click="toggleMain(fighter)">
     <!-- <img :src="fighter.deckImagePath" class="fighter-icon" /> -->
-    <div :class="['name', this.player.activeFighter?.name === this.fighter.name ? 'fast-colour-cycle' : 'colour-cycle']">
+    <div
+      :class="['name', this.player.activeFighter?.name === this.fighter.name ? 'fast-colour-cycle' : 'colour-cycle']">
       {{ fighter.name }}
     </div>
+    <button v-if="this.player.activeFighter?.name === this.fighter.name" type="button"
+      :class="['crown', { 'active': this.fighter.name === this.winner }]" :style="favouriteFighterStyles"
+      @click.stop="setWinner(fighter)">
+      <v-icon type="crown" size="50" class="crownIcon" />
+    </button>
     <button type="button" :class="['favourite', { 'active': player.hasFave(fighter) }]" :style="favouriteFighterStyles"
-      @click.stop="player.toggleFave(fighter), countStringInRange()">
+      @click.stop="player.toggleFave(fighter)">
       <v-icon type="heart" />
     </button>
-    <div  :class="['stats',{'hidden': !showData}, this.player.activeFighter?.name === this.fighter.name ? 'fast-colour-cycle' : 'colour-cycle']">
-      Wins: {{ this.fighterWins }} <br/>
-      Current Streak: <br/>
-      Best Streak: <br/>
-      Win Ratio: 
+    <div
+      :class="['stats', { 'hidden': !showData }, this.player.activeFighter?.name === this.fighter.name ? 'fast-colour-cycle' : 'colour-cycle']">
+      <div> <!-- Wins: {{ this.fighterWins }} <br /> -->
+        Wins: {{ getWins(fighter.name) }} <br />
+        Streak: {{ getCurrentStreak(fighter.name) }} <br />
+        Best Streak: {{ getBestStreak(fighter.name) }} <br />
+        Games: {{ getGamesPlayed(fighter.name) }} <br />
+        Win Ratio: {{ getWinRatio(fighter.name) }}%
+      </div>
+      <div>
+        <!-- stats on right side of stat box go here if needed  -->
+
+      </div>
     </div>
   </div>
 </template>
@@ -30,71 +45,100 @@ export default {
       type: Array,
       default: () => []
     },
+    winstreakData: {
+      type: Array,
+      default: () => []
+    },
+     statsData: {
+      type: Array,
+      default: () => []
+    },
     showData: false
     
   },
   data() {
     return {
       //imgUrl: `url('${this.fighter.deckImagePath}')`
-      wins: 0
+      wins: 0,
+      winner: 'test'
     }
   },
   methods: {
 
-     async countFighterWins() {
-      const result = await GoogleSheetsService.countStringInRange('E3:E200', this.fighter.name);
-      
-      if (result.success) {
-        this.wins = result.count;
-        return result.count;
-      } else {
-        alert('Failed to count wins');
-        return 0;
-      }
-    },
-
-     countStringInRange() {
-      console.log('called 4')
-    
-      const count = winsData.filter(item => 
-        String(item) === this.fighter.name
-      ).length;
-      
-      console.log(`"${this.fighter.name}" appears ${count} times in range ${range}`);
-       
-    
-  },
-    
     toggleMain(fighter) {
       if (!this.selectable) return;
       this.player.toggleMain(fighter)
       this.$emit("selected")
+    },
+
+    setWinner() {
+      console.log('setting winner: ' + this.fighter.name)
+      this.$bus.$emit("set-winner", this.fighter.name)
+    },
+
+    handleWinnerSet(winnerName) {
+      this.winner = winnerName;
+    },
+
+    getWins(deckName) {
+      const deck = this.statsData.find(d => d.name === deckName);
+      return deck ? deck.wins : 0;
+    },
+
+    getCurrentStreak(deckName) {
+      const deck = this.statsData.find(d => d.name === deckName);
+      return deck ? deck.currentStreak : 0;
+    },
+
+    getBestStreak(deckName) {
+      const deck = this.statsData.find(d => d.name === deckName);
+      return deck ? deck.bestStreak : 0;
+    },
+
+    getGamesPlayed(deckName) {
+      const deck = this.statsData.find(d => d.name === deckName);
+      return deck ? deck.gamesPlayed : 0;
+    },
+
+    getWinRatio(deckName) {
+      const deck = this.statsData.find(d => d.name === deckName);
+      if (!deck || deck.gamesPlayed === 0) return 0;
+      return Math.round((deck.wins / deck.gamesPlayed) * 100);
     }
+
+
+
   },
+
+
   computed: {
+
+    isWinner() {
+      return this.winner === this.fighter.name;
+    },
+
     fighterStyles() {
-    const baseStyles = {
-      backgroundImage: `url('${this.fighter.deckImagePath}')`,
-      backgroundSize: '300px',
-      backgroundPosition: `${this.fighter.position}`,
-      boxShadow: `5px 0 10px black`
-      
-    };
-    
-    if (this.player.activeFighter?.name === this.fighter.name) {
-      return {
-        ...baseStyles,
-        backgroundColor: `var(--${this.player.colour}-light)`,
-       
-        boxShadow: `0px 0px 8px 3px var(--${this.player.colour}-primary)`,
-        animation: 'blink 2s',
-        animationFillMode: 'forwards',
-        animationDirection: 'alternate'
+      const baseStyles = {
+        backgroundImage: `url('${this.fighter.deckImagePath}')`,
+        backgroundSize: '300px',
+        backgroundPosition: `${this.fighter.position}`,
+        boxShadow: `5px 0 10px black`,
+        '--shadow': `var(--${this.player.colour}-dark)`,
       };
-    }
-    
-    return baseStyles;
-  },
+
+      if (this.player.activeFighter?.name === this.fighter.name) {
+        return {
+          ...baseStyles,
+          backgroundColor: `var(--${this.player.colour}-light)`,
+          boxShadow: `0px 0px 12px 12px var(--${this.player.colour}-primary)`,
+          animation: 'blink 2s',
+          animationFillMode: 'forwards',
+          animationDirection: 'alternate'
+        };
+      }
+
+      return baseStyles;
+    },
     favouriteFighterStyles() {
       if (!this.player.hasFave(this.fighter)) return "";
 
@@ -107,8 +151,22 @@ export default {
     return (this.winsData || []).filter(
       w => String(w).toLowerCase() === this.fighter.name.toLowerCase()
     ).length
+  },
+
+      fighterCurrentStreak() {
+    return (this.winstreakData || []).filter(
+      w => String(w).toLowerCase() === this.fighter.name.toLowerCase()
+    ).length
   }
 
+  },
+
+
+  mounted() {
+    this.$bus.$on("set-winner", this.handleWinnerSet)
+  },
+  beforeDestroy() {
+    this.$bus.$off("set-winner", this.handleWinnerSet)
   }
 
 
@@ -126,14 +184,17 @@ export default {
   background-color: black;
   justify-content: space-between;
   cursor: pointer;
+  position: relative;
 
   &:hover {
     background-color: var(--greyscale-90);
 
     .favourite {
       opacity: 1;
-    align-self: right;   
+    }
 
+    .crown {
+      opacity: 1;
     }
   }
 
@@ -157,7 +218,10 @@ export default {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 4px 12px;
   border-radius: 4px;
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  padding-inline: 5%;
+  
 }
 
 .name {
@@ -215,6 +279,56 @@ export default {
   }
 }
 
+.crown {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--greyscale-70);
+  opacity: 0;
+  position: absolute;
+  right: 20%;
+  filter: drop-shadow(0px 0px 1.5px rgb(255, 255, 255));
+  //--hammach: 1px;
+  // filter: 
+  //   drop-shadow(1px 1px 0px rgba(255,255,255,0.5)) 
+  //   drop-shadow(1px -1px 0px rgba(255,255,255,0.5))
+  //   drop-shadow(-1px 1px 0px rgba(255,255,255,0.5)) 
+  //   drop-shadow(-1px -1px 0px rgba(255,255,255,0.5))
+  //   drop-shadow(1px 1px var(--hammach) var(--shadow)) 
+  //   drop-shadow(1px -1px var(--hammach) var(--shadow)) 
+  //   drop-shadow(-1px 1px var(--hammach) var(--shadow)) 
+  //   drop-shadow(-1px -1px var(--hammach) var(--shadow));
+  //filter: drop-shadow(1px 1px 1px white) drop-shadow(-1px -1px 1px red) drop-shadow(1px -1px 1px blue) drop-shadow(-1px 1px 1px green);
+
+
+  .button {
+    height: 50px;
+    width: 50px;
+    
+  }
+
+  &.active {
+    opacity: 1;
+
+    &:hover {
+      animation: none;
+    }
+  }
+
+  &:hover {
+    animation: wobble-animation 1s ease-in-out infinite alternate;
+  }
+
+  
+}
+
+.crownIcon {
+  height: 50px;
+  width: 50px;
+}
 
 @keyframes wobble-animation {
   0%, 100% {
@@ -226,8 +340,8 @@ export default {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1 !important; }
-  50% { opacity: 0.3 !important; }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 @keyframes colour-cycle {

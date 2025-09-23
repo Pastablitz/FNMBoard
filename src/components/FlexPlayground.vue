@@ -293,7 +293,7 @@ div.parent>div.child {}
   padding: 10px;
   border-radius: 5px;
   background-color: #FFF;
-  min-width: 120px;
+  min-width: 95px;
   text-align: center;
   color: #000;
   /* White text color */

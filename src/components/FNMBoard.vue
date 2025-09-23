@@ -1,30 +1,37 @@
 <template>
   <div class="roll-button-container">
-    <v-button @click="rollTheDice(), rollDicelist(), playRollSoundAdvanced(), calculateFirstPlayer(), changeBackground(), populateWinsData()"
+    <v-button
+      @click="rollTheDice(), rollDicelist(), !muted && playRollSoundAdvanced(), calculateFirstPlayer(), changeBackground(), populateWinsData()"
       :icon="isRolling ? 'spinner' : 'refresh'" :disabled="noMains || isRolling || isSaving" dark />
     <div class="v-fnmboard">
       <v-nameplate :class="['roster']" :player="playerOne" @name-click="rollTheDie(playerOne)"
-        @set-faves="playerOne.resetMains()" @clear-mains="playerOne.clearMains()" ref="np1" :wins-data="winsData" :show-data="showData"/>
+        @set-faves="playerOne.resetMains()" @clear-mains="playerOne.clearMains()" ref="np1" :wins-data="winsData"
+        :show-data="showData" :stats-data="statsData"/>
       <v-nameplate class="roster" :player="playerTwo" @name-click="rollTheDie(playerTwo)"
-        @set-faves="playerTwo.resetMains()" @clear-mains="playerTwo.clearMains()" ref="np2" :wins-data="winsData" :show-data="showData"/>
+        @set-faves="playerTwo.resetMains()" @clear-mains="playerTwo.clearMains()" ref="np2" :wins-data="winsData"
+        :show-data="showData" :stats-data="statsData"/>
       <v-nameplate class="roster" :player="playerThree" @name-click="rollTheDie(playerThree)"
-        @set-faves="playerThree.resetMains()" @clear-mains="playerThree.clearMains()" ref="np3" :wins-data="winsData" :show-data="showData"/>
+        @set-faves="playerThree.resetMains()" @clear-mains="playerThree.clearMains()" ref="np3" :wins-data="winsData"
+        :show-data="showData" :stats-data="statsData"/>
       <div class="plus-minus-buttons">
-        <v-button icon="contact-card" primary @click="toggleData()" title="View Stats"> </v-button>
-        <v-button icon="sun" primary @click="changeBackground()" title="Change Background"> </v-button>
-        <v-button icon="search-history" primary @click="populateWinsData()" title="Populate Win Data"> <span> {{ winsData.length }}</span></v-button>
-        <v-button :icon="isSaving ? 'spinner' : 'save'" primary @click="logGame()" title="Log Game"></v-button>
+        <v-button icon="contact-card" primary @click="toggleData()" title="View Stats" />
+        <v-button icon="sun" primary @click="changeBackground()" title="Change Background" />
+        <v-button icon="search-history" primary @click="populateWinsData(), populateStatsData()" title="Populate Win Data">{{ winsData.length }} {{ statsData.length }}</v-button>
+        <v-button :icon="isSaving ? 'spinner' : 'save'" primary @click="logGame()" title="Log Game" />
         <v-button icon="plus" primary @click="addDicelist()" title="Add Dicelist" v-if="numberOfDicelists <= 0"
-          :disabled="numberOfDicelists >= 1"></v-button>
+          :disabled="numberOfDicelists >= 1" />
         <v-button icon="minus" negative @click="removeDicelist()" title="Remove Dicelist" v-if="numberOfDicelists >= 1"
-          :disabled="numberOfDicelists <= 0"></v-button>
+          :disabled="numberOfDicelists <= 0" />
       </div>
       <div class="dicelist-panel">
         <v-dicelist v-for="n in numberOfDicelists" :key="n" :listID="'list-' + n" ref="dicelist" />
       </div>
     </div>
+    <div class="options-buttons">
+      <v-toggle icon="mute" v-model="muted">Mute</v-toggle>
+    </div>
   </div>
-      <!-- <div class="middle-panel"> make this like the menu that drops down from off screen but make it whip on from the side or marquee or something
+  <!-- <div class="middle-panel"> make this like the menu that drops down from off screen but make it whip on from the side or marquee or something
       <div class="image-row">
          <img :src="!playerOne.activeFighter ? playerOneDieImage : playerOne.activeFighter.imagePath"
           class="char-image" /> 
@@ -55,9 +62,13 @@ export default {
       SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyoELRWsn-pyumiVjLoWn9GsIXqnv9dKbHvJnakDuaNNY5XvAgb-aX9aqd1Kffh4SQf/exec',
       deckWins: 0,
       winsData: [],
-      showData: false
+      statsData: [],
+      showData: false,
+      winnerName: '',
+      muted: false
     }
   },
+  
   methods: {
     //this calls for every fighter individually - bad
     updateAllFighterNameplateWins() {
@@ -68,27 +79,49 @@ export default {
     },
     //calls for all wins at once - good
     async populateWinsData() {
-      const result = await GoogleSheetsService.readRange('E3:E200');
+      const result = await GoogleSheetsService.readRange('E3:E200', 'GameLog');
       if (result.success) this.winsData = result.data;
     },
+
+    async populateStatsData() {
+  const statsArray = await GoogleSheetsService.getDeckStats();
+  this.statsData = statsArray; // Direct assignment
+  console.log("All deck stats:", statsArray);
+  console.log("Number of decks:", statsArray.length);
+},
 
     async logGame() {
       this.isSaving = true;
       if (!エリオ.activeFighter || !ジョシュ.activeFighter || !ロブ.activeFighter) {
         console.warn("active fighters missing");
-        this.isSaving = false; // Don't forget to reset this!
+        this.isSaving = false; 
+        return;
+      }
+
+      if (!this.winnerName || this.winnerName === '') {
+        console.warn("No winner selected." );
+        this.isSaving = false; 
         return;
       }
 
       try {
-        await GoogleSheetsService.addToColumn('F', エリオ.activeFighter.name);
-        await GoogleSheetsService.addToColumn('G', ジョシュ.activeFighter.name);
-        await GoogleSheetsService.addToColumn('H', ロブ.activeFighter.name);
-        await GoogleSheetsService.addToColumn('I', new Date().toLocaleString());
+        await new Promise(resolve => setTimeout(resolve, 100)); // 100ms pause
+        await GoogleSheetsService.addToColumn('B', エリオ.activeFighter.name, 'GameLog');
+        await new Promise(resolve => setTimeout(resolve, 100)); // 100ms pause
+        await GoogleSheetsService.addToColumn('C', ジョシュ.activeFighter.name, 'GameLog');
+        await new Promise(resolve => setTimeout(resolve, 100)); // 100ms pause
+        await GoogleSheetsService.addToColumn('D', ロブ.activeFighter.name, 'GameLog');
+        await new Promise(resolve => setTimeout(resolve, 100)); // 100ms pause
+        await GoogleSheetsService.addToColumn('A', new Date().toLocaleString(), 'GameLog');
+        await new Promise(resolve => setTimeout(resolve, 100)); // 100ms pause
+        await GoogleSheetsService.addToColumn('E', this.winnerName, 'GameLog');
 
         await this.populateWinsData(); 
 
-        console.log('Game logged successfully');
+        console.log('Game logged successfully. Winner: ' + this.winnerName);
+        this.winnerName = '';
+        this.$bus.$emit("set-winner", '')
+
       } catch (error) {
         console.error('Failed to log game:', error);
       } finally {
@@ -194,20 +227,32 @@ export default {
     removeDicelist() {
       this.numberOfDicelists--;
     },
-    changeBackground() {
-      this.$emit("change-bg")
+    async changeBackground() {
+      this.$emit("change-bg")  
     },
     toggleData() {
       this.showData = !this.showData
+    },
+    toggleMute() {
+      this.muted = !this.muted;
+    },
+    setGameWinner(winnerName) {
+      this.winnerName = winnerName;
     }
-
   },
 
   mounted() {
+    //commented out for testing - uncomment when live to populate on load
     //this.populateWinsData();
+
+    this.$bus.$on("set-winner", this.setGameWinner)
   },
 
-  computed: {
+  beforeDestroy() {
+    //this.$bus.$off("set-winner", this.setGameWinner)
+  },
+
+  computed: { 
     noMains() {
       return (this.playerOne.mains.length === 0 || this.playerTwo.mains.length === 0) || this.playerOne.mains.length ===0;
     }
@@ -320,4 +365,9 @@ export default {
   //background-color: var(--greyscale-10);
 }
 
+.options-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
 </style>

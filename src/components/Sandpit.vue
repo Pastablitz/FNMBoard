@@ -322,7 +322,7 @@ export default {
     flex-direction: row;
     transform: scale(2);
     transform-origin: center;
-    font-size: 50;
+    font-size: 50px;
     margin-top: 16px;
     margin-inline: 8px;
   }
@@ -338,7 +338,6 @@ export default {
 .marquee-item {
   height: var(--item-height);
   display: flex;
-  align-items: top;
   justify-content: center;
   flex-shrink: 0;
   padding-inline: 8px;

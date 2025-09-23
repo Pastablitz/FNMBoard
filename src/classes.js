@@ -2,6 +2,7 @@ class Fighter {
   constructor(name,position) {
     this.name = name;
     this.position = position;
+    this.isWinner = false;
   }
 
   get iconPath() {
@@ -38,7 +39,7 @@ class GameLog {
   }
 
  async loadWinners(range, searchString) {
-    const result = await this.readRange(range);
+    const result = await this.readRange(range, 'GameLog');
     console.log(result)
     if (result.success) {
 

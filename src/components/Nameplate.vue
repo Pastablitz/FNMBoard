@@ -5,7 +5,8 @@
     </span>
     <div class="mains" >
       <div v-for="fighter in player.mains" @dblclick="player.activeFighter = fighter" >
-        <v-fighter v-bind:fighter="fighter" :fighter="fighter"  :player="player" ref="fighter" :wins-data="winsData" :show-data="showData"  />
+        <v-fighter v-bind:fighter="fighter" :fighter="fighter"  :player="player" ref="fighter" :wins-data="winsData" 
+        :show-data="showData" :stats-data="statsData" />
         <v-button @click="player.toggleMain(fighter)" icon="close" negative xsmall />
       </div>
     </div>
@@ -26,6 +27,10 @@ export default {
     player: { type: Player },
     wins: 0,
     winsData: {
+      type: Array,
+      default: () => []
+    },
+     statsData: {
       type: Array,
       default: () => []
     },
@@ -54,7 +59,7 @@ export default {
   mainStyles() {    
       return {
         color: `var(--${this.player.colour}-primary)`,
-        boxShadow: `0px 0px 8px 3px var(--${this.player.colour}-primary)`
+        boxShadow: `0px 0px 8px 10px var(--${this.player.colour}-primary)`
       };
     }
 }

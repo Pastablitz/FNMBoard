@@ -6,7 +6,7 @@
       :primary="player.name === 'ジョシュ'" 
       :positive="player.name === 'ロブ'" 
        />
-    <dialog ref="selectionModal" class="selection-modal" v-click-outside="closeSelectionModal">
+    <dialog ref="selectionModal" class="selection-modal" :style="rosterPosition" v-click-outside="closeSelectionModal">
       <div class="modal-top">
         <span class="player-name">{{ player.name }}</span>
         <button class="sort-by-button" type="button" @click="sortBy++">
@@ -66,6 +66,17 @@ export default {
         case SortBy.default:
         default:
           return "default order";
+      }
+    },
+    rosterPosition() {
+      switch (this.player.name) {
+        case 'エリオ':
+          return { 'right': `60%`};
+        case 'ジョシュ':
+          return { 'left': `0px`};
+        case 'ロブ':
+          return { 'left': `60%`};
+        default: return { 'left': `0px`};
       }
     }
   }

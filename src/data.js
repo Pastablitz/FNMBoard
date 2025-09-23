@@ -10,89 +10,6 @@ const BOSS_DATA = [
 ];
 
 
-const ELL_DECKS = [
-{ name: 'JP Enchants'  },
-{ name: 'Xyris'  },
-{ name: 'Rhonas'  },
-{ name: 'Raffine'  },
-{ name: 'Aurelia'  },
-{ name: 'Ghalta & Mavren'  },
-{ name: 'Dinosaurs'  },
-{ name: 'Beza'  },
-{ name: 'Obeka'  },
-{ name: 'Ygra'  },
-{ name: 'Pirates'  },
-{ name: 'Fish'  },
-{ name: 'Horror rooms'  },
-{ name: 'Ashling'  },
-{ name: 'Shadow'  },
-{ name: 'Tom'  },
-{ name: 'Gandalf'  },
-{ name: 'Maha'  },
-{ name: 'Scarab god'  },
-{ name: 'Glarb'  },
-
-]
-
-const JOSH_DECKS = [
-{ name: 'Betor'  },
-{ name: 'Breya'  },
-{ name: 'Cloud'  },
-{ name: 'Double Ds'  },
-{ name: 'Dragonlord Ojutai'  },
-{ name: 'Gix'  },
-{ name: 'God-Eternal Oketra'  },
-{ name: 'Hazoret'  },
-{ name: 'Inspirit'  },
-{ name: 'Jin Gitaxias'  },
-{ name: 'Kardur'  },
-{ name: 'Lightning'  },
-{ name: 'Marneus Calgar'  },
-{ name: 'Merfolk'  },
-{ name: 'Ms. Bumblebutt'  },
-{ name: 'Niv'  },
-{ name: 'Niv Reborn'  },
-{ name: 'Ruric Thar'  },
-{ name: 'Sauron'  },
-{ name: 'Shanid'  },
-{ name: 'Sin'  },
-{ name: 'Squall'  },
-{ name: 'Terra'  },
-{ name: 'Teysa'  },
-{ name: 'Vanille'  },
-{ name: 'Velomachus'  },
-{ name: 'Vorinclex'  },
-{ name: 'Zareth San'  },
-{ name: 'Speed Demon'  },
-
-]
-
-const ROB_DECKS = [
-{ name: 'Giada'  },
-{ name: 'Fynn'  },
-{ name: 'Korlash'  },
-{ name: 'Muzzio'  },
-{ name: 'Krenko'  },
-{ name: 'Lathril'  },
-{ name: 'Lazav'  },
-{ name: 'Edgar'  },
-{ name: 'Kaalia'  },
-{ name: 'Aminatou'  },
-{ name: 'Narset'  },
-{ name: 'Marlene'  },
-{ name: 'Nekusar'  },
-{ name: 'Ghidorah'  },
-{ name: 'Atraxa'  },
-{ name: 'Aragorn'  },
-{ name: 'Omnath'  },
-{ name: 'Azlask'  },
-{ name: 'Jodah'  },
-{ name: 'Ulalek'  },
-{ name: 'Anafenza'  },
-{ name: 'Jund'  },
-
-]
-
 const ALL_DECKS = [
 { name: 'JP Enchants', position: '10% 10%'  },
 { name: 'Xyris', position: '46% 46%'  },
@@ -165,7 +82,7 @@ const ALL_DECKS = [
 { name: 'Jodah', position: '0% 5%'  },
 { name: 'Ulalek', position: '0% 10%'  },
 { name: 'Anafenza', position: '100% 20%'  },
-{ name: 'Jund', position: '0% 10%'  },
+{ name: 'Winter', position: '-100% 60%'  },
 
 { name: 'New Deck', position: '100% 75%'  },
 { name: 'Mystery', position: '100% 75%'  },
