@@ -16,7 +16,7 @@
       <div class="plus-minus-buttons">
         <v-button icon="contact-card" primary @click="toggleData()" title="View Stats" />
         <v-button icon="sun" primary @click="changeBackground()" title="Change Background" />
-        <v-button icon="search-history" primary @click="populateWinsData(), populateStatsData()" title="Populate Win Data">{{ winsData.length }} {{ statsData.length }}</v-button>
+        <v-button icon="search-history" primary @click="populateWinsData(), populateStatsData()" title="Populate Win Data">{{ winsData.length }}</v-button>
         <v-button :icon="isSaving ? 'spinner' : 'save'" primary @click="logGame()" title="Log Game" />
         <v-button icon="plus" primary @click="addDicelist()" title="Add Dicelist" v-if="numberOfDicelists <= 0"
           :disabled="numberOfDicelists >= 1" />
