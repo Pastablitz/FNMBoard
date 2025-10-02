@@ -87,6 +87,99 @@ const ALL_DECKS = [
 { name: 'New Deck', position: '100% 75%'  },
 { name: 'Mystery', position: '100% 75%'  },
 
+];
+
+
+const ELL_DECKS = [
+{ name: 'JP Enchants', position: '10% 10%'  },
+{ name: 'Xyris', position: '46% 46%'  },
+{ name: 'Rhonas', position: '0% 15%'  },
+{ name: 'Raffine', position: '25% 20%'  },
+{ name: 'Aurelia', position: '10% 25%'  },
+{ name: 'Ghalta & Mavren', position: '-30% 20%'  },
+{ name: 'Dinosaurs', position: '0% 20%'  },
+{ name: 'Beza', position: '0% 10%'  },
+{ name: 'Obeka', position: '65% 15%'  },
+{ name: 'Ygra', position: '60% 10%'  },
+{ name: 'Pirates', position: '55% 30%'  },
+{ name: 'Fish', position: '0% 0%'  },
+{ name: 'Horror rooms', position: '50% 55%'  },
+{ name: 'Ashling', position: '90% 25%'  },
+{ name: 'Shadow', position: '100% 50%'  },
+{ name: 'Tom', position: '50% 0%'  },
+{ name: 'Gandalf', position: '25% 0%'  },
+{ name: 'Maha', position: '50% 25%'  },
+{ name: 'Scarab god', position: '0% 30%'  },
+{ name: 'Glarb', position: '0% 25%'  },
+
+{ name: 'New Deck', position: '100% 75%'  },
+{ name: 'Mystery', position: '100% 75%'  },
+
+];
+
+const JJ_DECKS = [
+{ name: 'Betor', position: '10% 25%'  },
+{ name: 'Breya', position: '50% 15%'  },
+{ name: 'Cloud', position: '30% 0%'  },
+{ name: 'Double Ds', position: '0% 22%'  },
+{ name: 'Dragonlord Ojutai', position: '0% 20%'  },
+{ name: 'God-Eternal Oketra', position: '50% 50%'  },
+{ name: 'Hazoret', position: '15% 25%'  },
+{ name: 'Inspirit', position: '50% 50%'  },
+{ name: 'Jin Gitaxias', position: '30% 0%'  },
+{ name: 'Kardur', position: '30% 10%'  },
+{ name: 'Lightning', position: '25% 0%'  },
+{ name: 'Marneus Calgar', position: '0% 30%'  },
+{ name: 'Merfolk', position: '0% 15%'  },
+{ name: 'Ms. Bumblebutt', position: '10% 5%'  },
+{ name: 'Niv', position: '80% 10%'  },
+{ name: 'Niv Reborn', position: '50% 5%'  },
+{ name: 'Ruric Thar', position: '0% 0%'  },
+{ name: 'Sauron', position: '25% 15%'  },
+//{ name: 'Shanid', position: '20% 5%'  },
+{ name: 'Sin', position: '0% 50%'  },
+{ name: 'Squall', position: '10% 0%'  },
+{ name: 'Terra', position: '100% 25%'  },
+//{ name: 'Teysa', position: '0% 30%'  },
+{ name: 'Vanille', position: '100% 5%'  },
+{ name: 'Vorinclex', position: '0% 30%'  },
+{ name: 'Zareth San', position: '50% 15%'  },
+{ name: 'Speed Demon', position: '100% 10%'  },
+{ name: 'Kutzil', position: '30% 15%'  },
+
+{ name: 'New Deck', position: '100% 75%'  },
+{ name: 'Mystery', position: '100% 75%'  },
+
+];
+
+
+const ROB_DECKS = [
+{ name: 'Giada', position: '20% 20%'  },
+{ name: 'Fynn', position: '0% 10%'  },
+{ name: 'Korlash', position: '60% 35%'  },
+{ name: 'Muzzio', position: '0% 15%'  },
+{ name: 'Krenko', position: '15% 35%'  },
+{ name: 'Lathril', position: '40% 5%'  },
+{ name: 'Lazav', position: '65% 15%'  },
+{ name: 'Edgar', position: '20% 10%'  },
+{ name: 'Kaalia', position: '0% 20%'  },
+{ name: 'Aminatou', position: '0% 0%'  },
+{ name: 'Narset', position: '-30% 25%'  },
+{ name: 'Marlene', position: '-40% 10%'  },
+{ name: 'Nekusar', position: '15% 5%'  },
+{ name: 'Ghidorah', position: '30% 45%'  },
+{ name: 'Atraxa', position: '10% 15%'  },
+{ name: 'Aragorn', position: '45% 15%'  },
+{ name: 'Omnath', position: '20% 20%'  },
+{ name: 'Azlask', position: '35% 35%'  },
+{ name: 'Jodah', position: '0% 5%'  },
+{ name: 'Ulalek', position: '0% 10%'  },
+{ name: 'Anafenza', position: '100% 20%'  },
+{ name: 'Winter', position: '-100% 60%'  },
+
+{ name: 'New Deck', position: '100% 75%'  },
+{ name: 'Mystery', position: '100% 75%'  },
+
 
 
 ]

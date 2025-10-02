@@ -53,9 +53,23 @@ export default {
     }
   },
   computed: {
-    playerRoster() {
-      return this.player.roster(this.sorting, this.searchTerm);
-    },
+
+       playerRoster() {
+    if (!this.player?.playerRoster?.length) {
+      return [];
+    }
+    
+    return this.player.playerRoster.filter(fighter => {
+      const cleanSearchTerm = this.searchTerm.toLowerCase().trim();
+      return !this.player.hasMain(fighter) && fighter.name.toLowerCase().includes(cleanSearchTerm);
+    }).sort((a, b) => {
+      if (this.sorting === 1) {
+        const faveSort = this.player.hasFave(b) - this.player.hasFave(a);
+        return faveSort === 0 ? a.name.localeCompare(b.name) : faveSort;
+      }
+      return a.name.localeCompare(b.name);
+    });
+  },
     sorting() {
       return this.sortBy % 2;
     },

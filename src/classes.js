@@ -66,9 +66,10 @@ class GameLog {
 }
 
 class Player {
-  constructor(name, colour) {
+  constructor(name, colour, playerRoster) {
     this.name = name;
     this.colour = colour;
+    this.playerRoster = playerRoster;
     this.faves = [];
     this.mains = [];
     this.defaults = [];
@@ -106,26 +107,26 @@ class Player {
     localStorage.setItem(`${this.name}-mains`, JSON.stringify(mainsData));
   }
 
- roster(sorting = SortBy.default, searchTerm = '') {
-  const filteredRoster = Roster.filter((fighter) => {
-    const cleanSearchTerm = searchTerm.toLowerCase().trim();
-    return !this.hasMain(fighter) && fighter.name.toLowerCase().includes(cleanSearchTerm)
-  });
-  
-  switch (sorting) {
-    case SortBy.favouritesFirst:
-      return filteredRoster.sort((a, b) => {
-        const faveSort = this.hasFave(b) - this.hasFave(a);
-        if (faveSort === 0) {
-          return a.name.localeCompare(b.name);
-        }
-        return faveSort;
-      });
-    case SortBy.default:
-    default:
-      return filteredRoster.sort((a, b) => a.name.localeCompare(b.name));
+  roster(sorting = SortBy.default, searchTerm = '') {
+    const filteredRoster = this.playerRoster.filter((fighter) => {
+      const cleanSearchTerm = searchTerm.toLowerCase().trim();
+      return !this.hasMain(fighter) && fighter.name.toLowerCase().includes(cleanSearchTerm)
+    });
+
+    switch (sorting) {
+      case SortBy.favouritesFirst:
+        return filteredRoster.sort((a, b) => {
+          const faveSort = this.hasFave(b) - this.hasFave(a);
+          if (faveSort === 0) {
+            return a.name.localeCompare(b.name);
+          }
+          return faveSort;
+        });
+      case SortBy.default:
+      default:
+        return filteredRoster.sort((a, b) => a.name.localeCompare(b.name));
+    }
   }
-}
 
   hasFave(fighter) {
     return this.faves.some(f => f.name === fighter.name);
