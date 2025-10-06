@@ -31,6 +31,9 @@ const ALL_DECKS = [
 { name: 'Maha', position: '50% 25%'  },
 { name: 'Scarab god', position: '0% 30%'  },
 { name: 'Glarb', position: '0% 25%'  },
+{ name: 'Jenny & Vastra', position: '0% 20%'  },
+{ name: 'Ketramose', position: '0% 0%'  },
+
 
 { name: 'Betor', position: '10% 25%'  },
 { name: 'Breya', position: '50% 15%'  },
@@ -111,6 +114,9 @@ const ELL_DECKS = [
 { name: 'Maha', position: '50% 25%'  },
 { name: 'Scarab god', position: '0% 30%'  },
 { name: 'Glarb', position: '0% 25%'  },
+{ name: 'Jenny & Vastra', position: '0% 20%'  },
+{ name: 'Ketramose', position: '0% 0%'  },
+
 
 { name: 'New Deck', position: '100% 75%'  },
 { name: 'Mystery', position: '100% 75%'  },
