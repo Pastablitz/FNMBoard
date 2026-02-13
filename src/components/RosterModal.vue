@@ -2,9 +2,9 @@
   <div class="v-roster-modal">
     <v-button @click="showSelectionModal" 
       icon="plus" 
-      :yellow="player.name === 'エリオ'"
-      :primary="player.name === 'ジョシュ'" 
-      :positive="player.name === 'ロブ'" 
+      :yellow="player.name === 'Els'"
+      :primary="player.name === 'JJ'" 
+      :positive="player.name === 'Rob'" 
        />
     <dialog ref="selectionModal" class="selection-modal" :style="rosterPosition" v-click-outside="closeSelectionModal">
       <div class="modal-top">
@@ -84,11 +84,11 @@ export default {
     },
     rosterPosition() {
       switch (this.player.name) {
-        case 'エリオ':
+        case 'Els':
           return { 'right': `60%`};
-        case 'ジョシュ':
+        case 'JJ':
           return { 'left': `0px`};
-        case 'ロブ':
+        case 'Rob':
           return { 'left': `60%`};
         default: return { 'left': `0px`};
       }

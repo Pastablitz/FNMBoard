@@ -33,6 +33,12 @@ const ALL_DECKS = [
 { name: 'Glarb', position: '0% 25%'  },
 { name: 'Jenny & Vastra', position: '0% 20%'  },
 { name: 'Ketramose', position: '0% 0%'  },
+{ name: 'Treebeard', position: '0% 0%'  },
+{ name: 'Anzrag', position: '0% 10%'  },
+{ name: 'Auntie Ool', position: '0% 35%'  },
+{ name: 'Sonic', position: '100% 60%'  },
+
+
 
 
 { name: 'Betor', position: '10% 25%'  },
@@ -40,8 +46,8 @@ const ALL_DECKS = [
 { name: 'Cloud', position: '30% 0%'  },
 { name: 'Double Ds', position: '0% 22%'  },
 { name: 'Dragonlord Ojutai', position: '0% 20%'  },
-{ name: 'God-Eternal Oketra', position: '50% 50%'  },
-{ name: 'Hazoret', position: '50% 50%'  },
+{ name: 'God-Eternal Oketra', position: '0% 10%'  },
+{ name: 'Hazoret', position: '0% 25%'  },
 { name: 'Inspirit', position: '50% 50%'  },
 { name: 'Jin Gitaxias', position: '30% 0%'  },
 { name: 'Kardur', position: '30% 10%'  },
@@ -63,6 +69,13 @@ const ALL_DECKS = [
 { name: 'Zareth San', position: '50% 15%'  },
 { name: 'Speed Demon', position: '100% 10%'  },
 { name: 'Kutzil', position: '30% 15%'  },
+{ name: 'Vivi', position: '10% 30%'  },
+{ name: 'Zahur', position: '0% 10%'  },
+{ name: 'Hearthhull', position: '50% 20%'  },
+{ name: 'Gwenom', position: '50% 20%'  },
+{ name: 'Keranos', position: '0% 5%'  },
+
+
 
 { name: 'Giada', position: '20% 20%'  },
 { name: 'Fynn', position: '0% 10%'  },
@@ -86,6 +99,8 @@ const ALL_DECKS = [
 { name: 'Ulalek', position: '0% 10%'  },
 { name: 'Anafenza', position: '100% 20%'  },
 { name: 'Winter', position: '-100% 60%'  },
+{ name: 'Trostani', position: '50% 5%'  },
+
 
 { name: 'New Deck', position: '100% 75%'  },
 { name: 'Mystery', position: '100% 75%'  },
@@ -116,6 +131,10 @@ const ELL_DECKS = [
 { name: 'Glarb', position: '0% 25%'  },
 { name: 'Jenny & Vastra', position: '0% 20%'  },
 { name: 'Ketramose', position: '0% 0%'  },
+{ name: 'Treebeard', position: '0% 0%'  },
+{ name: 'Anzrag', position: '0% 10%'  },
+{ name: 'Auntie Ool', position: '0% 35%'  },
+{ name: 'Sonic', position: '100% 60%'  },
 
 
 { name: 'New Deck', position: '100% 75%'  },
@@ -129,8 +148,8 @@ const JJ_DECKS = [
 { name: 'Cloud', position: '30% 0%'  },
 { name: 'Double Ds', position: '0% 22%'  },
 { name: 'Dragonlord Ojutai', position: '0% 20%'  },
-{ name: 'God-Eternal Oketra', position: '50% 50%'  },
-{ name: 'Hazoret', position: '15% 25%'  },
+{ name: 'God-Eternal Oketra', position: '0% 10%'  },
+{ name: 'Hazoret', position: '0% 25%'  },
 { name: 'Inspirit', position: '50% 50%'  },
 { name: 'Jin Gitaxias', position: '30% 0%'  },
 { name: 'Kardur', position: '30% 10%'  },
@@ -144,7 +163,7 @@ const JJ_DECKS = [
 { name: 'Sauron', position: '25% 15%'  },
 //{ name: 'Shanid', position: '20% 5%'  },
 { name: 'Sin', position: '0% 50%'  },
-{ name: 'Squall', position: '10% 0%'  },
+//{ name: 'Squall', position: '10% 0%'  },
 { name: 'Terra', position: '100% 25%'  },
 //{ name: 'Teysa', position: '0% 30%'  },
 { name: 'Vanille', position: '100% 5%'  },
@@ -152,6 +171,11 @@ const JJ_DECKS = [
 { name: 'Zareth San', position: '50% 15%'  },
 { name: 'Speed Demon', position: '100% 10%'  },
 { name: 'Kutzil', position: '30% 15%'  },
+{ name: 'Vivi', position: '10% 30%'  },
+{ name: 'Zahur', position: '0% 10%'  },
+{ name: 'Hearthhull', position: '50% 20%'  },
+{ name: 'Gwenom', position: '50% 20%'  },
+{ name: 'Keranos', position: '0% 5%'  },
 
 { name: 'New Deck', position: '100% 75%'  },
 { name: 'Mystery', position: '100% 75%'  },
@@ -182,6 +206,7 @@ const ROB_DECKS = [
 { name: 'Ulalek', position: '0% 10%'  },
 { name: 'Anafenza', position: '100% 20%'  },
 { name: 'Winter', position: '-100% 60%'  },
+{ name: 'Trostani', position: '50% 5%'  },
 
 { name: 'New Deck', position: '100% 75%'  },
 { name: 'Mystery', position: '100% 75%'  },
@@ -189,3 +214,19 @@ const ROB_DECKS = [
 
 
 ]
+
+const tags = Object.freeze({
+  Origin: {
+    Earth: 1,
+    Mars: 2,
+    MiddleEarth: 3,
+  },
+  Colour: {
+    Red: 1,
+    Blue: 2,
+    Green: 3
+  }
+})
+
+
+

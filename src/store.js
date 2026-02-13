@@ -16,9 +16,9 @@ const rRoster = ROB_DECKS.map((fighter) => {
 
 
 
-const エリオ = new Player("エリオ", "yellow", eRoster);
-const ジョシュ = new Player("ジョシュ", "blue", jRoster);
-const ロブ = new Player("ロブ", "green", rRoster);
+const Els = new Player("Els", "yellow", eRoster);
+const JJ = new Player("JJ", "blue", jRoster);
+const Rob = new Player("Rob", "green", rRoster);
 
 
 
@@ -27,6 +27,6 @@ const BossRoster = BOSS_DATA.map((boss) => {
 });
 
 const EP1 = new EldenPlayer("P1", "red", 7, 2);
-const EP2 = new EldenPlayer("ジョシュ", "blue", 8, 6);
+const EP2 = new EldenPlayer("JJ", "blue", 8, 6);
 
 const BossboardPalette = new Palette("bossboard");

@@ -1,18 +1,21 @@
 <template>
   <div class="v-nameplate">
+    <div :class="['active-fighter-box']">
+    <img :src="activeFighterImage" alt="Active Fighter" :class="[ player.goingFirst ? 'blur-colour-cycle' : '' ]" />
+    </div>
     <span :class="[player.goingFirst ? 'fast-colour-cycle' : 'colour-cycle', 'player-name']" @click="nameClick">
       {{ player.name }}
     </span>
-    <div class="mains" >
-      <div v-for="fighter in player.mains" @dblclick="player.activeFighter = fighter" >
-        <v-fighter v-bind:fighter="fighter" :fighter="fighter"  :player="player" ref="fighter" :wins-data="winsData" 
-        :show-data="showData" :stats-data="statsData" />
+    <div class="mains">
+      <div v-for="fighter in player.mains" @dblclick="player.activeFighter = fighter">
+        <v-fighter v-bind:fighter="fighter" :fighter="fighter" :player="player" ref="fighter" :wins-data="winsData"
+          :show-data="showData" :stats-data="statsData" />
         <v-button @click="player.toggleMain(fighter)" icon="close" negative xsmall />
       </div>
     </div>
     <div class="buttons-container">
-      <v-button class="set-faves-btn" icon="heart" @click="setFaves" :yellow="player.name === 'エリオ'"
-        :primary="player.name === 'ジョシュ'" :positive="player.name === 'ロブ'" small />
+      <v-button class="set-faves-btn" icon="heart" @click="setFaves" :yellow="player.name === 'Els'"
+        :primary="player.name === 'JJ'" :positive="player.name === 'Rob'" small />
       <v-roster-modal class="roster-button" :player="player" />
       <v-button class="clear-all-btn" icon="close" @click="clearMains()" negative small />
     </div>
@@ -61,7 +64,11 @@ export default {
         color: `var(--${this.player.colour}-primary)`,
         boxShadow: `0px 0px 8px 10px var(--${this.player.colour}-primary)`
       };
-    }
+    },
+     activeFighterImage() {
+    const name = this.player.activeFighter?.name;
+    return name ? `src/assets/deck-imgs/${name}.jpg` : 'src/assets/deck-imgs/Mystery.jpg';
+  }
 }
 }
 </script>
@@ -171,4 +178,43 @@ export default {
   align-self: center; 
 }
 
+.player-image {
+  background-color: rgba(0, 0, 0, 0.7); 
+  padding: 4px 12px;
+  border-radius: 4px;
+  //display: inline-block; // Makes it only as wide as the text
+  width: fit-content;
+  align-self: center; 
+}
+
+.active-fighter-box {
+  display: flex;
+  box-sizing: border-box;
+  margin-inline: 20px;
+  justify-content: center;
+  max-height: 200px;
+  >img {
+    max-width: 80%;
+    border-radius: 50px;
+  }
+}
+
+.going-first {
+  box-sizing: border-box;
+}
+
+
+@keyframes blur-colour-cycle {
+  0% {    box-shadow: 0 0 50px 50px var(--yellow-primary); } // #FBAF00
+  20% {   box-shadow: 0 0 50px 50px var(--blue-primary); } // #FFA3AF
+  40% {   box-shadow: 0 0 50px 50px var(--green-primary); } // #ae1cc5
+  60% {   box-shadow: 0 0 50px 50px var(--red-primary); } // #007CBE
+  80% {   box-shadow: 0 0 50px 50px var(--purple-primary); } // #00AF54
+  100% {  box-shadow: 0 0 50px 50px var(--yellow-primary); } // #FBAF00
+}
+
+.blur-colour-cycle {
+  animation: blur-colour-cycle 2s infinite ease-in;
+  font-weight: bold;
+}
 </style>

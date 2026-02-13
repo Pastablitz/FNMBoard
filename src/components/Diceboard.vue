@@ -8,7 +8,7 @@
       <v-dicelist v-for="n in numberOfLists" :key="n" :listID="'list-' + n" ref="dicelist" />
     </div>
     <div class="plus-minus-buttons">
-      <v-button icon="plus" primary @click="addDicelist()" :disabled="numberOfLists >= 4"></v-button>
+      <v-button icon="plus" primary @click="addDicelist()" :disabled="numberOfLists >= 10000"></v-button>
       <v-button icon="minus" negative @click="removeDicelist()" :disabled="numberOfLists <= 1"></v-button>
     </div>
     <div class="options-buttons">

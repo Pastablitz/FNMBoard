@@ -20,6 +20,7 @@ export default {
     tertiary: { type: Boolean },
     dark: { type: Boolean },
     disabled: { type: Boolean },
+    large: { type: Boolean },
     small: { type: Boolean },
     xsmall: { type: Boolean },
     href: { type: String },
@@ -45,6 +46,7 @@ export default {
     buttonClasses() {
       const classes = [
         "v-button-container",
+        { "large": this.large },
         { "small": this.small },
         { "xsmall": this.xsmall },
         { "icon-only": !this.$slots.default && !this.label && (this.icon || this.iconRight) },
@@ -103,6 +105,30 @@ export default {
     height: 42px;
     margin: 0;
     padding-inline: 17px;
+  }
+
+    &.large {
+      height: 52px;
+      width: 52px;
+      border-radius: 6px;
+      font-size: 16px;
+  
+      &:hover,
+      &:active {
+        height: 54px;
+        width: 54px;
+      }
+  
+      &.icon-only {
+        height: 52px;
+        width: 52px;
+  
+        &:hover,
+        &:active {
+          height: 54px;
+          width: 54px;
+        }
+      }
   }
 
   &.small {

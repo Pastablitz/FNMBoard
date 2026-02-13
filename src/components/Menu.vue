@@ -3,6 +3,7 @@
     <dialog ref="menuModal" class="menu-modal" v-click-outside="closeMenu">
       <div >
         <v-button dark @click="goToPage('/')">FNM</v-button>
+        <!-- <v-button dark @click="goToPage('dungeontracker')">DUNGEON TRACKER</v-button> -->
         <v-button dark @click="goToPage('diceboard')">DICELIST</v-button>
         <v-button dark @click="goToPage('bossboard')">BOSS</v-button>
         <v-button dark @click="goToPage('flex')">FLEX</v-button>

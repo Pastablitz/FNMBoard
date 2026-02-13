@@ -4,10 +4,15 @@
     :style="fighterStyles" @click="toggleMain(fighter)">
     <!-- <img :src="fighter.deckImagePath" class="fighter-icon" /> -->
     <div
-      :class="['name', this.player.activeFighter?.name === this.fighter.name ? 'fast-colour-cycle' : 'colour-cycle']">
-      {{ fighter.name }}
-    </div>
-    <button v-if="this.player.activeFighter?.name === this.fighter.name" type="button"
+     :class="['name', this.player.activeFighter?.name === this.fighter.name ? 'fast-colour-cycle' : 'colour-cycle']">
+      {{ fighter.name }} <br />
+      {{
+        (getDeckScore(fighter.name) < 200   ? '•' : 
+        getDeckScore(fighter.name) < 800    ? '✶' : 
+        getDeckScore(fighter.name) < 1200   ? '✷' 
+                                            : '✹') + ' ' +
+        getDeckScore(fighter.name) }} </div>
+        <button v-if="this.player.activeFighter?.name === this.fighter.name" type="button"
       :class="['crown', { 'active': this.fighter.name === this.winner }]" :style="favouriteFighterStyles"
       @click.stop="setWinner(fighter)">
       <v-icon type="crown" size="50" class="crownIcon" />
@@ -18,12 +23,14 @@
     </button>
     <div
       :class="['stats', { 'hidden': !showData }, this.player.activeFighter?.name === this.fighter.name ? 'fast-colour-cycle' : 'colour-cycle']">
-      <div> <!-- Wins: {{ this.fighterWins }} <br /> -->
+      <div style="font-size:14px"> <!-- Wins: {{ this.fighterWins }} <br /> -->
+        Power Level: {{ getDeckScore(fighter.name) }} <br />
         Wins: {{ getWins(fighter.name) }} <br />
-        Streak: {{ getCurrentStreak(fighter.name) }} <br />
-        Best Streak: {{ getBestStreak(fighter.name) }} <br />
+        <!-- Best Streak: {{ getBestStreak(fighter.name) }} <br /> -->
         Games: {{ getGamesPlayed(fighter.name) }} <br />
-        Win Ratio: {{ getWinRatio(fighter.name) }}%
+        <!-- Last Played: {{ getLastPlayed(fighter.name) }} <br /> -->
+        Streak: {{ getCurrentStreak(fighter.name) }} <br />
+        Win Ratio: {{ getWinRatio(fighter.name) }}% 
       </div>
       <div>
         <!-- stats on right side of stat box go here if needed  -->
@@ -98,6 +105,22 @@ export default {
     getGamesPlayed(deckName) {
       const deck = this.statsData.find(d => d.name === deckName);
       return deck ? deck.gamesPlayed : 0;
+    },
+
+    getLastPlayed(deckName) {
+      const deck = this.statsData.find(d => d.name === deckName);
+      if (!deck || !deck.lastPlayed) return "?";
+
+      const date = new Date(deck.lastPlayed);
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+      });
+    },
+
+    getDeckScore(deckName) {
+      const deck = this.statsData.find(d => d.name === deckName);
+      return deck ? Math.round(deck.weightedScore) : 0;
     },
 
     getWinRatio(deckName) {
@@ -208,7 +231,7 @@ export default {
   object-fit: contain;
   border-radius: 8px;
 
-  &.ジョシュ-no-active-fighter {
+  &.JJ-no-active-fighter {
     filter: hue-rotate(210deg);
   }
 }
@@ -242,7 +265,7 @@ export default {
   height: 100px;
   align-content: center;
   z-index: -1;
-  line-height: 1.5;
+  line-height: 1.4;
   transform: translateZ(0);
   font-size: 14px;
   transition: transform 0.3s ease, opacity 0.3s ease;

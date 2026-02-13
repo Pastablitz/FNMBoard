@@ -100,7 +100,7 @@ export const GoogleSheetsService = {
 
   async getDeckStats() {
   try {
-    const result = await this.readGrid("B3:H279", "Decks");
+    const result = await this.readGrid("B3:N279", "Decks");
     if (!result.success) return [];
 
     const rows = result.data; // 2D array
@@ -111,7 +111,9 @@ export const GoogleSheetsService = {
         gamesPlayed: Number(row[2]||0),// col D (offset: 1)
         wins: Number(row[3]||0),       // col E
         currentStreak: Number(row[5]||0), // col G
-        bestStreak: Number(row[6]||0)     // col H
+        bestStreak: Number(row[6]||0),     // col H
+        lastPlayed: row[7] || null,  // col I
+        weightedScore: row[12] || null
       }));
   } catch (err) {
     console.error("Error loading deck stats:", err);

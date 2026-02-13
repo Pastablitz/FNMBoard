@@ -23,6 +23,8 @@ import MineSweeper from './components/mine-sweeper/MineSweeper.vue';
 import MineBoard from './components/mine-sweeper/Mineboard.vue';
 import MineCell from './components/mine-sweeper/MineCell.vue';
 import Sandpit from './components/Sandpit.vue';
+import DungeonTracker from './components/DungeonTracker.vue';
+
 
 
 
@@ -51,6 +53,8 @@ if (typeof Vue !== 'undefined') {
   Vue.component('v-minesweeper', MineSweeper);
   Vue.component('v-minecell', MineCell);
   Vue.component('v-sandpit', Sandpit);
+  Vue.component('v-dungeon-tracker', DungeonTracker);
+
 
 }
 
@@ -59,6 +63,7 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes: [
     { path: '/', component: FNMBoard },
+    { path: '/dungeontracker', component: DungeonTracker },
     { path: '/diceboard', component: DiceBoard },
     { path: '/flex', component: FlexPlayground },
     { path: '/bossboard', component: BossBoard },
