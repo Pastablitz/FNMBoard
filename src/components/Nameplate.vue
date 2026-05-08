@@ -1,7 +1,7 @@
 <template>
   <div class="v-nameplate">
     <div :class="['active-fighter-box']">
-    <img :src="activeFighterImage" alt="Active Fighter" :class="[ player.goingFirst ? 'blur-colour-cycle' : '' ]" />
+    <img :src="activeFighterImage" alt="Active Fighter" :class="{ 'blur-colour-cycle': player.goingFirst, 'floating': true }" :style="{ '--float-delay': floatDelay, '--float-duration': floatDuration }" />
     </div>
     <span :class="[player.goingFirst ? 'fast-colour-cycle' : 'colour-cycle', 'player-name']" @click="nameClick">
       {{ player.name }}
@@ -38,6 +38,12 @@ export default {
       default: () => []
     },
     showData: false
+  },
+  data() {
+    return {
+      floatDelay: `${Math.random() * 3}s`,
+      floatDuration: `${(Math.random() * 3 + 5).toFixed(2)}s`
+    }
   },
   methods: {
     nameClick() {
@@ -185,6 +191,7 @@ export default {
   //display: inline-block; // Makes it only as wide as the text
   width: fit-content;
   align-self: center; 
+  
 }
 
 .active-fighter-box {
@@ -193,6 +200,7 @@ export default {
   margin-inline: 20px;
   justify-content: center;
   max-height: 200px;
+  
   >img {
     max-width: 80%;
     border-radius: 50px;
@@ -211,6 +219,31 @@ export default {
   60% {   box-shadow: 0 0 50px 50px var(--red-primary); } // #007CBE
   80% {   box-shadow: 0 0 50px 50px var(--purple-primary); } // #00AF54
   100% {  box-shadow: 0 0 50px 50px var(--yellow-primary); } // #FBAF00
+}
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+		transform: translatey(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+}
+
+.floating {
+	animation: float var(--float-duration) ease-in-out infinite;
+	animation-delay: var(--float-delay);
+}
+
+.floating.blur-colour-cycle {
+	animation: float var(--float-duration) ease-in-out infinite, blur-colour-cycle 2s infinite ease-in;
+	animation-delay: var(--float-delay);
 }
 
 .blur-colour-cycle {

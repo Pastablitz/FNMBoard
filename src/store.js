@@ -2,15 +2,15 @@ const Roster = ALL_DECKS.map((fighter) => {
   return new Fighter(fighter.name, fighter.position);
 });
 
-const eRoster = ELL_DECKS.map((fighter) => {
+const eRoster = ALL_DECKS.filter((fighter) => fighter.owner === 'Ell' || !fighter.owner).map((fighter) => {
   return new Fighter(fighter.name, fighter.position);
 });
 
-const jRoster = JJ_DECKS.map((fighter) => {
+const jRoster = ALL_DECKS.filter((fighter) => fighter.owner === 'JJ' || !fighter.owner).map((fighter) => {
   return new Fighter(fighter.name, fighter.position);
 });
 
-const rRoster = ROB_DECKS.map((fighter) => {
+const rRoster = ALL_DECKS.filter((fighter) => fighter.owner === 'Rob' || !fighter.owner).map((fighter) => {
   return new Fighter(fighter.name, fighter.position);
 });
 

@@ -306,7 +306,10 @@ export default {
        'wiisports.mp3',
        'windowsXPerror.mp3',
         'xfiles.mp3',
-        'xfilesclipped.mp3'
+        'xfilesclipped.mp3',
+        'bond_theme1.mp3',
+        'bond_theme2.mp3',
+        'bond_theme3.mp3'
       ];
 
       try {
